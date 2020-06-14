@@ -1,7 +1,6 @@
 import React from "react";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import { Notes, Home, Star, Event, ListAlt } from '@material-ui/icons';
+import { NavLink } from "react-router-dom";
 
 import classes from "./Menu.module.scss";
 
@@ -12,20 +11,30 @@ const Menu = (props) => {
 
 	};
 	return (
-		<BottomNavigation
-			value={value}
-			onChange={(event, newValue) => {
-				setValue(newValue);
-			}}
-			showLabels
+		<div
 			className={classes.NavigationMenu}
 		>
-			<BottomNavigationAction className={classes.NavigationMenuItem} label="Home" icon={<Home />} />
-			<BottomNavigationAction className={classes.NavigationMenuItem} label="Notes" icon={<Notes />} />
-			<BottomNavigationAction className={classes.NavigationMenuItem} label="Tasks" icon={<ListAlt />} />
-			<BottomNavigationAction className={classes.NavigationMenuItem} label="Goals" icon={<Star />} />
-			<BottomNavigationAction className={classes.NavigationMenuItem} label="Calendar" icon={<Event />} />
-		</BottomNavigation>
+			<NavLink to={"/"} exact className={classes.NavigationMenuItem}>
+				<div><Home/></div>
+				<div>Home</div>
+			</NavLink>
+			<NavLink to={"/notes"} className={classes.NavigationMenuItem}>
+				<div><Notes/></div>
+				<div>Notes</div>
+			</NavLink>
+			<NavLink to={"/tasks"} className={classes.NavigationMenuItem}>
+				<div><ListAlt/></div>
+				<div>Tasks</div>
+			</NavLink>
+			<NavLink to={"/goals"} className={classes.NavigationMenuItem}>
+				<div><Star/></div>
+				<div>Goals</div>
+			</NavLink>
+			<NavLink to={"/calendar"} className={classes.NavigationMenuItem}>
+				<div><Event/></div>
+				<div>Calendar</div>
+			</NavLink>
+		</div>
 	);
 }
 

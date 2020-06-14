@@ -1,3 +1,7 @@
+$dimgray-color: #696969;
+$dark-cyan-color: #009688;
+$global-primary-color: $dark-cyan-color;
+
 .NavigationMenu {
 	display: flex;
 	flex-direction: column;
@@ -6,6 +10,18 @@
 	align-items: stretch;
 }
 
+.NavigationMenu a.active {
+	color: $global-primary-color;
+}
+
 .NavigationMenuItem {
 	max-width: 100%;
+	height: 80px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: stretch;
+	text-decoration: none;
+	color: $dimgray-color;
+	font-size: 12px;
 }
