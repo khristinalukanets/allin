@@ -18,15 +18,15 @@ const Layout = (props) => {
 		<Aux>
 			<Header/>
 			<Grid container className={classes.Content}>
-				<Grid md={2}>
-					<Menu />
+				<Grid item md={2}>
+					<Menu/>
 				</Grid>
-				<Grid item xs={10} md={7}>
-					<Route path="/" exact  component={Home} />
-					<Route path="/tasks" exact  component={Tasks} />
-					<Route path="/goals" exact  component={Goals} />
-					<Route path="/calendar" exact  component={Calendar} />
-					<Route path="/notes" exact  component={Notes} />
+				<Grid item md={10}>
+					<Route path="/" exact component={Home}/>
+					<Route path="/tasks" exact component={Tasks}/>
+					<Route path="/goals" exact component={Goals}/>
+					<Route path="/calendar" exact component={Calendar}/>
+					<Route path="/notes" exact component={Notes}/>
 				</Grid>
 			</Grid>
 		</Aux>

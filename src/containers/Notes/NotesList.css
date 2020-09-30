@@ -1,0 +1,26 @@
+.notes-list {
+	display: flex;
+	flex-wrap: wrap;
+	overflow: hidden;
+}
+
+.notes-list-item {
+	width: 200px;
+	height: 220px;
+	margin: 10px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.26);
+	font-size: 14px;
+}
+
+.note-body {
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 6; /* number of lines to show */
+	-webkit-box-orient: vertical;
+}
+
+.note-toolbar {
+	background: 0;
+}

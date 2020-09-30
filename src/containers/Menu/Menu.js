@@ -4,12 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import classes from "./Menu.module.scss";
 
-const Menu = (props) => {
-	let value = "Home";
-
-	const setValue = (val) => {
-
-	};
+const Menu = () => {
 	return (
 		<div
 			className={classes.NavigationMenu}
