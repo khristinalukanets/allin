@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import axios from '../../axios-notes';
+import * as actions from '../../store/actions/index';
 import { Button } from '@material-ui/core';
 import NotesList from "./NotesList";
 
 import './Notes.css';
 
-const Notes = () => {
-	const [notes, setNote] = useState([]);
+const Notes = (props) => {
+	useEffect(() => {
+		props.onFetchNotes();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	const [newNote, setNewNote] = useState("");
 
 	const submitHandler = event => {
@@ -14,14 +22,11 @@ const Notes = () => {
 	};
 
 	const addNote = () => {
-		setNote(prevNotes => [
-			...prevNotes,
-			{ id: Math.random().toString(), body: newNote }
-		]);
+		props.onAddNote( { body: newNote }, props.notes);
 	};
 
 	const removeNoteHandler = noteId => {
-		setNote(prevNotes => prevNotes.filter(item => item.id !== noteId));
+		props.onRemoveNote( noteId, props.notes);
 	};
 
 	return (
@@ -41,9 +46,34 @@ const Notes = () => {
 					</Button>
 				</div>
 			</form>
-			<NotesList items={notes} onRemoveItem={removeNoteHandler} />
+			<NotesList items={props.notes} onRemoveItem={removeNoteHandler} />
 		</div>
 	);
 };
 
-export default Notes;
+
+const mapStateToProps = state => {
+	return {
+		notes: state.notes.notes,
+		loading: state.notes.loading
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onFetchNotes: () => {
+			dispatch(actions.fetchNotes());
+		},
+		onAddNote: (newNote, notes) => {
+			dispatch(actions.addNote(newNote, notes));
+		},
+		onRemoveNote: (noteId, notes) => {
+			dispatch(actions.removeNote(noteId, notes));
+		}
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(withErrorHandler(Notes, axios));

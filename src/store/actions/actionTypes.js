@@ -1,0 +1,6 @@
+export const ADD_NOTE = 'ADD_NOTE';
+export const REMOVE_NOTE = 'REMOVE_NOTE';
+
+export const FETCH_NOTES_START = 'FETCH_ORDERS_START';
+export const FETCH_NOTES_SUCCESS = 'FETCH_ORDERS_SUCCESS';
+export const FETCH_NOTES_FAIL = 'FETCH_ORDERS_FAIL';
