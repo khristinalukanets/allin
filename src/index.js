@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import {Provider} from "react-redux";
 import notesReducer from './store/reducers/notes';
+import eventsReducer from './store/reducers/events';
 import thunk from 'redux-thunk';
 
 let composeEnhancers = null;
@@ -16,7 +17,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const rootReducer = combineReducers({
-	notes: notesReducer
+	notes: notesReducer,
+	events: eventsReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

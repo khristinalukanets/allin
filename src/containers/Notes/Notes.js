@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import axios from '../../axios-notes';
+import axios from '../../axios';
 import * as actions from '../../store/actions/index';
 import { Button } from '@material-ui/core';
 import NotesList from "./NotesList";

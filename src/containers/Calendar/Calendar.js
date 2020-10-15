@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
@@ -15,7 +15,10 @@ import {
 	ConfirmationDialog
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-import appointments from './Apointments';
+import * as actions from '../../store/actions/index';
+import {connect} from "react-redux";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import axios from "../../axios";
 
 const currentDate = new Date();
 
@@ -55,38 +58,33 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
 };
 
 const Calendar = (props) => {
-	const [data, setData] = useState(appointments);
-
 	const commitChanges = ({added, changed, deleted}) => {
-		let newData;
 		if (added) {
-			const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-			newData = [...data, {id: startingAddedId, ...added}];
+			const startingAddedId = props.events.length > 0 ? props.events[props.events.length - 1].id + 1 : 0;
+			const newEvent = {id: startingAddedId, ...added};
+
+			props.onAddEvent(newEvent, props.events)
 		}
 		if (changed) {
-			newData = data.map(appointment => (
-				changed[appointment.id] ? {...appointment, ...changed[appointment.id]} : appointment));
+			const oldEvent = props.events.find(event => changed[event.id]);
+			const changedEvent = Object.assign({}, oldEvent, changed[oldEvent.id]);
+
+			props.onChangeEvent(changedEvent, props.events);
 		}
 		if (deleted !== undefined) {
-			newData = data.filter(appointment => appointment.id !== deleted);
+			props.onRemoveEvent(deleted, props.events);
 		}
-
-		setData(newData);
 	};
 
 	useEffect(() => {
-		if(!data){
-			console.log('effect called without change - by default');
-		}
-		else{
-			console.log('effect called with change ');
-		}
-	}, [data]);
+		props.onFetchEvents();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<Paper>
 			<Scheduler
-				data={data}
+				data={props.events}
 			>
 				<ViewState
 					defaultCurrentDate={currentDate}
@@ -125,4 +123,32 @@ const Calendar = (props) => {
 	);
 };
 
-export default Calendar;
+
+const mapStateToProps = state => {
+	return {
+		events: state.events.events,
+		loading: state.events.loading
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onFetchEvents: () => {
+			dispatch(actions.fetchEvents());
+		},
+		onAddEvent: (newEvent, events) => {
+			dispatch(actions.addEvent(newEvent, events));
+		},
+		onChangeEvent: (event, events) => {
+			dispatch(actions.changeEvent(event, events));
+		},
+		onRemoveEvent: (EventId, events) => {
+			dispatch(actions.removeEvent(EventId, events));
+		}
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(withErrorHandler(Calendar, axios));
