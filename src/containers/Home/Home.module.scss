@@ -1,0 +1,9 @@
+$dark-cyan-color: #009688;
+$global-primary-color: $dark-cyan-color;
+
+.JokeCard {
+	max-width: 500px;
+	margin: 20px auto;
+	padding: 20px;
+	background: lighten($global-primary-color, 65%);
+}
