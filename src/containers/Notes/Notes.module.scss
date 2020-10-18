@@ -1,0 +1,15 @@
+$dark-cyan-color: #009688;
+$global-primary-color: $dark-cyan-color;
+
+.NotesPage {
+	text-align: center;
+
+	textarea {
+		width: 80%;
+		margin: 0 auto;
+	}
+}
+
+.NoteAddButton {
+	background: $global-primary-color;
+}

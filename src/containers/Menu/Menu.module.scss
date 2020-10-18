@@ -8,6 +8,8 @@ $global-primary-color: $dark-cyan-color;
 	height: 100%;
 	justify-content: flex-start;
 	align-items: stretch;
+	background: lighten($global-primary-color, 70%);
+	border-right: 1px solid $dimgray-color;
 }
 
 .NavigationMenuItem {

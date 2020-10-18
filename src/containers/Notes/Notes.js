@@ -6,7 +6,7 @@ import * as actions from '../../store/actions/index';
 import { Button } from '@material-ui/core';
 import NotesList from "./NotesList";
 
-import './Notes.css';
+import classes from './Notes.module.scss';
 
 const Notes = (props) => {
 	useEffect(() => {
@@ -23,6 +23,7 @@ const Notes = (props) => {
 
 	const addNote = () => {
 		props.onAddNote( { body: newNote }, props.notes);
+		setNewNote("");
 	};
 
 	const removeNoteHandler = noteId => {
@@ -30,18 +31,19 @@ const Notes = (props) => {
 	};
 
 	return (
-		<div className="notes-page">
+		<div className={classes.NotesPage}>
 			<h2>Notes</h2>
 			<form onSubmit={submitHandler}>
 				<textarea
 					rows={6}
+					value={newNote}
 					onChange={event => {
 						setNewNote(event.target.value);
 					}}
 				>
 				</textarea>
 				<div>
-					<Button variant="contained" color="primary" onClick={addNote}>
+					<Button className={classes.NoteAddButton} variant="contained" color="primary" onClick={addNote}>
 						Add note
 					</Button>
 				</div>

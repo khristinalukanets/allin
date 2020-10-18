@@ -1,18 +1,21 @@
-.notes-list {
+$dark-cyan-color: #009688;
+$global-primary-color: $dark-cyan-color;
+
+.NotesList {
 	display: flex;
 	flex-wrap: wrap;
 	overflow: hidden;
 }
 
-.notes-list-item {
-	width: 200px;
+.NotesListItem {
+	width: 45%;
 	height: 220px;
-	margin: 10px;
+	margin: 20px 2%;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.26);
 	font-size: 14px;
 }
 
-.note-body {
+.NoteBody {
 	text-align: left;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -21,6 +24,10 @@
 	-webkit-box-orient: vertical;
 }
 
-.note-toolbar {
+.NoteToolbar {
 	background: 0;
+}
+
+.NoteDeleteButton {
+	color: $global-primary-color;
 }
